@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post page</title>
+</head>
+<style>
+body{
+    margin: 0px;
+    background-color: green;
+    background-image: url("/image/115157812.0.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.new_coin{
+    position: absolute;
+    width: 500px;
+    height: 45px;
+    left: 300px;
+    top: 100px;
+}
+.header{
+    display: flex;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    justify-content: space-around;
+    
+}
+a{
+    margin-left: 10%;
+    text-decoration: none;
+    color: white;
+}
+
+</style>
+<div class="header">
+    <a href=" {% url 'post_list' %} "> SBcoins</a>
+    {% if request.user.is_authenticated %}
+    <a href=" {% url 'logout' %} ">log out</a>
+    <a href="#">{{ request.user }}</a>
+    <a href=" {% url 'new_post' %}">выставить обявление монеты</a>
+    {% else  %}
+    <a href=" {% url 'login' %} ">log in</a>
+    <a href=" {% url 'register' %} ">регистрация</a>
+    <a href=" {% url 'register' %}">выставить обявление монеты</a>
+    {% endif  %}
+
+    </div>
+
+<body>
+    <div class="new_coin">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.author }}</p>
+    <p>Год:{{ post.ycoin }}</p>
+    <p>Цена: {{ post.cprice }} тенге</p>
+    <p>{{ post.text}}</p>
+    <img src="{{ post.img.url }}" style="width: 300px;" alt="">
+    </div>
+</body>
+</html>

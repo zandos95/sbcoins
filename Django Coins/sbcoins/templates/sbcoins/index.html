@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<style>
+body{
+    margin: 0px;
+    background-color: green;
+    background-image: url("/image/cover4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header{
+    display: flex;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    justify-content: space-around;
+    
+}
+.adress{
+    display: flex;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    justify-content: space-around;
+    
+}
+a{
+    margin-left: 10%;
+    text-decoration: none;
+    color: white;
+}
+.links{
+    display: flex;
+    flex-direction: column;
+    color: brown;
+    justify-content: none;
+
+}
+img{
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 300px;
+    border: 2px solid black;
+    background-color: white;
+}
+.c_list{
+    widows: 100%;
+    justify-content: space-around;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.coin_list{
+    widows: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 210px;
+    height: 200px;
+    border: 2px solid black;
+    background-color: white;
+
+}
+
+
+h3{
+    text-align: center;
+}
+h5{
+    text-align: center;
+}
+p{
+    text-align: center;
+    width: 90%;
+    margin-left: 40px   ;
+}
+
+</style>
+<body>
+    <div class="header">
+    <a href=" {% url 'post_list' %} "> SBcoins</a>
+    {% if request.user.is_authenticated %}
+    <a href=" {% url 'logout' %} ">log out</a>
+    <a href="#">{{ request.user }}</a>
+    <a href=" {% url 'new_post' %}">выставить обявление монеты</a>
+    {% else  %}
+    <a href=" {% url 'login' %} ">log in</a>
+    <a href=" {% url 'register' %} ">регистрация</a>
+    <a href=" {% url 'register' %}">выставить обявление монеты</a>
+    {% endif  %}
+
+    </div>
+    <div>
+        <h3>Добро пожаловать в нумизматически магазин SBcoins!</h3>
+        <p> 
+            В нашем магазине вы можете приобрести монеты акссесуары и приятные подарки на все случай жизнии. 
+            Монеты и банкноты, которые мы продаем, приурочены к различным памятным событиям, знаменитым людям, городам, свершениям и и.д. Мы предлагаем коллекционные монеты из золота, серебра высшей пробы, некоторые из которых могут содержать в себе драгоценные камни, стразы Своровски, жемчужины и иные декор-элементы. Также у нас имеются монеты из не драгоценных металлов и антикварные, старинные монеты.  
+            Коллекционные или как их еще называют памятные, сувенирные монеты являются как отличным долгосрочным вложением (инвестицией), так и необычным респектабельным подарком. 
+            Мы ищем индивидуальный подход к каждому клиенту и готовы предложить ему не только широкий ассортимент монет и банкнот по различным ценам, но и готовы работать индивидуально, собирая для него полную коллекцию или индивидуальный заказ. Также для постоянных клиентов у нас есть дисконтная система, которая позволит собирать коллекцию по более низким ценам. 
+        </p>
+    </div>
+    <div class="adress">
+        <div>
+            <h5>Контактные данные:</h5>
+            <p> Тел.номер +7 777 77 77</p>
+            <p> Email адрес SBcoins@xmail.com</p>
+        </div>
+        <div>
+            <h5>Наш адрес:</h5>
+            <p>г.Алматы ул.Абылай хана 54. вход с угла</p>
+        </div>
+    </div>
+    <h3>Новые обявления</h3>
+    <div class="c_list">
+        {% for post in posts %}
+        <div class="coin_list">
+            <span class="links">Монета:</span>
+                <a class="links" href="{% url 'post' pk=post.pk %}"> {{ post.title }} </a>
+            <span class="links">Владелец:</span>
+                <a class="links" href="{% url 'post' pk=post.pk %}"> {{ post.author }} </a>
+                {% if post.img %}
+                    <img src="{{ post.img.url }}" alt="">
+                {% endif  %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
